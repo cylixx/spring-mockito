@@ -1,0 +1,45 @@
+package com.softland.spring.mockito.api.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.softland.spring.mockito.api.model.Employee;
+import com.softland.spring.mockito.api.model.Response;
+import com.softland.spring.mockito.api.repository.EmployeeRepository;
+
+@RestController
+@RequestMapping("/employee")
+public class EmployeeController {
+	
+	@Autowired
+	private EmployeeRepository repository;
+	
+	@PostMapping
+	public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
+		Employee result = repository.save(employee);
+		return new ResponseEntity<Employee>(result, HttpStatus.OK);
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<Employee>> allEmployee() {
+		List<Employee> employees = repository.findAll();
+		return new ResponseEntity<List<Employee>>(employees, HttpStatus.OK);
+	}
+	
+	
+	
+	@PostMapping("/add2")
+	public Response addEmployee2(@RequestBody Employee employee) {
+		Employee result = repository.save(employee);
+		return new Response(employee.getId() + " inserted", Boolean.TRUE);
+	}
+
+}
