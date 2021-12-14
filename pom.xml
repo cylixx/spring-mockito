@@ -46,7 +46,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			</dependency>
+			<exclusions>
+            <exclusion>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+            </exclusion>
+        	</exclusions>
+		</dependency>
 	
 	<!-- https://www.baeldung.com/spring-boot-testing -->
 		<dependency>
